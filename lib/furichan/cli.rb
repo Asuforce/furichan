@@ -7,10 +7,10 @@ require 'furik/cli'
 
 module Furichan
   class CLI < Thor
-    default_command ':furi-chan'
+    default_command :furichan
 
-    desc 'furi-chan', 'Do the all of week task'
-    def furi_chan
+    desc 'furichan', 'Do the all of week task'
+    def furichan
       invoke :init
       invoke :furik
     end
