@@ -3,6 +3,7 @@
 require 'thor'
 require 'date'
 require 'active_support/time'
+require 'furik/cli'
 
 module Furichan
   class CLI < Thor
@@ -17,9 +18,9 @@ module Furichan
     desc 'init', 'initialize of week setting'
     def init
       wmonth = Time.now().strftime('%Y-%m-') + week_of_month
-      sh "git checkout -b #{wmonth}"
-      sh "mkdir -p #{wmonth}"
-      sh "cp template.md #{wmonth}/README.md"
+      `git checkout -b #{wmonth}`
+      `mkdir -p #{wmonth}`
+      `cp template.md #{wmonth}/README.md`
     end
 
     desc 'furik', 'this week"s furik'
