@@ -48,11 +48,13 @@ module Furichan
       # It should be first week.
       # Don't add when begining of month is saturday or sunday
       # ex 2017/07/07(Fri) -> 1
-      unless beginning_of_month.saturday? or beginning_of_month.sunday?
-        cweek += 1
-      end
+      cweek += 1 unless weekend?(begining_of_month)
 
       cweek.to_s
+    end
+
+    def weekend?(day)
+      day.saturday? or day.sunday?
     end
 
     def furik_init
