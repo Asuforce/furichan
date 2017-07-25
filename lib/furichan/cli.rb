@@ -1,5 +1,3 @@
-# coding: utf-8
-
 require 'thor'
 require "furichan/furichan_util"
 
@@ -17,7 +15,7 @@ module Furichan
 
     desc 'init', 'initialize of week setting'
     def init
-      init_branch
+      #init_branch
       init_file
     end
 
