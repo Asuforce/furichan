@@ -66,7 +66,6 @@ module FurichanUtil
   end
 
   def create_template
-    reflection = write_reflection
     template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
     ERB.new(template).result(binding)
   end
