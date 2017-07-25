@@ -2,7 +2,6 @@
 
 require 'thor'
 require 'fileutils'
-require 'erb'
 require "furichan/furichan_util"
 
 module Furichan
@@ -27,12 +26,7 @@ module Furichan
 
     desc 'reflection', "write file about this week's furik"
     def reflection
-      wmonth = get_wmonth
-      reflection = write_reflection
-      template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
-      md = ERB.new(template).result(binding)
-      dest = Pathname(wmonth + '/README.md')
-      dest.open('a') { |f| f.puts md }
+      set_template(create_template)
     end
 
     desc 'furik', "write stdout this week's furik"

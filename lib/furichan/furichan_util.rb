@@ -2,6 +2,7 @@
 require 'date'
 require 'active_support/time'
 require 'furik/cli'
+require 'erb'
 
 module FurichanUtil
   private
@@ -52,5 +53,16 @@ module FurichanUtil
     return out.string
   ensure
     $stdout = STDOUT
+  end
+
+  def create_template
+    reflection = write_reflection
+    template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
+    ERB.new(template).result(binding)
+  end
+
+  def set_template(result)
+    dest = Pathname("#{get_wmonth}/README.md")
+    dest.open('a') { |f| f.puts result }
   end
 end
