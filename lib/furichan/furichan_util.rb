@@ -1,7 +1,8 @@
-
 require 'date'
-require 'active_support/time'
+require 'erb'
+require 'fileutils'
 require 'furik/cli'
+require 'active_support/time'
 
 module FurichanUtil
   private
@@ -52,5 +53,25 @@ module FurichanUtil
     return out.string
   ensure
     $stdout = STDOUT
+  end
+
+  def init_branch
+   `git checkout -b #{get_wmonth}`
+  end
+
+  def init_file
+    wmonth = get_wmonth
+    FileUtils.mkdir("#{wmonth}")
+    FileUtils.touch("#{wmonth}/README.md")
+  end
+
+  def create_template
+    template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
+    ERB.new(template).result(binding)
+  end
+
+  def set_template(result)
+    dest = Pathname("#{get_wmonth}/README.md")
+    dest.open('a') { |f| f.puts result }
   end
 end
