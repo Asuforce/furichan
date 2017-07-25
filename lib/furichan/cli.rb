@@ -5,6 +5,7 @@ require 'date'
 require 'active_support/time'
 require 'furik/cli'
 require 'fileutils'
+require 'erb'
 
 module Furichan
   class CLI < Thor
@@ -21,14 +22,16 @@ module Furichan
       wmonth = Time.now().strftime('%Y-%m-') + week_of_month
       `git checkout -b #{wmonth}`
       FileUtils.mkdir("#{wmonth}")
-      FileUtils.cp('template.md', "#{wmonth}/README.md")
+      FileUtils.touch("#{wmonth}/README.md")
     end
 
     desc 'furik', 'this week"s furik'
     def furik
       wmonth = Time.now().strftime('%Y-%m-') + week_of_month
+      template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
+      md = ERB.new(template).result(binding)
       dest = Pathname(wmonth + '/README.md')
-      dest.open('w') { |f| f.puts furik_init }
+      dest.open('a') { |f| f.puts md }
     end
 
     private
