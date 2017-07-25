@@ -20,7 +20,7 @@ module Furichan
     desc 'init', 'initialize of week setting'
     def init
       wmonth = get_wmonth
-      #`git checkout -b #{wmonth}`
+      `git checkout -b #{wmonth}`
       FileUtils.mkdir("#{wmonth}")
       FileUtils.touch("#{wmonth}/README.md")
     end
