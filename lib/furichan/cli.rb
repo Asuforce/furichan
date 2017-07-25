@@ -14,7 +14,7 @@ module Furichan
     desc 'furichan', 'Do the all of week task'
     def furichan
       invoke :init
-      invoke :furik
+      invoke :reflection
     end
 
     desc 'init', 'initialize of week setting'
@@ -25,8 +25,8 @@ module Furichan
       FileUtils.touch("#{wmonth}/README.md")
     end
 
-    desc 'furik', 'this week"s furik'
-    def furik
+    desc 'reflection', "write about this week's furik"
+    def reflection
       wmonth = get_wmonth
       reflection = write_reflection
       template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
