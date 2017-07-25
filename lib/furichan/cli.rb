@@ -28,6 +28,7 @@ module Furichan
     desc 'furik', 'this week"s furik'
     def furik
       wmonth = get_wmonth
+      reflection = write_reflection
       template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
       md = ERB.new(template).result(binding)
       dest = Pathname(wmonth + '/README.md')
@@ -48,13 +49,18 @@ module Furichan
       # It should be first week.
       # Don't add when begining of month is saturday or sunday
       # ex 2017/07/07(Fri) -> 1
-      cweek += 1 unless weekend?(begining_of_month)
+      cweek += 1 unless weekend?(beginning_of_month)
 
       cweek.to_s
     end
 
     def weekend?(day)
       day.saturday? or day.sunday?
+    end
+
+    def write_reflection
+      activity = capture_stdout { furik_init }
+      activity.gsub!('7days Activities', '## 7days Activity')
     end
 
     def furik_init
@@ -67,8 +73,7 @@ module Furichan
         to: week.end_of_week.to_s,
         since: 0,
       }
-      activity = capture_stdout { furik.activity }
-      activity.gsub!('7days Activities', '## 7days Activity')
+      furik.activity
     end
 
     def capture_stdout
