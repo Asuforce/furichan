@@ -19,7 +19,7 @@ module Furichan
 
     desc 'init', 'initialize of week setting'
     def init
-      wmonth = Time.now().strftime('%Y-%m-') + week_of_month
+      wmonth = get_wmonth
       `git checkout -b #{wmonth}`
       FileUtils.mkdir("#{wmonth}")
       FileUtils.touch("#{wmonth}/README.md")
@@ -27,7 +27,8 @@ module Furichan
 
     desc 'furik', 'this week"s furik'
     def furik
-      wmonth = Time.now().strftime('%Y-%m-') + week_of_month
+      wmonth = get_wmonth
+      reflection = write_reflection
       template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
       md = ERB.new(template).result(binding)
       dest = Pathname(wmonth + '/README.md')
@@ -35,6 +36,10 @@ module Furichan
     end
 
     private
+
+    def get_wmonth
+      Time.now().strftime('%Y-%m-') + week_of_month
+    end
 
     def week_of_month
       today = Date.today()
@@ -44,11 +49,18 @@ module Furichan
       # It should be first week.
       # Don't add when begining of month is saturday or sunday
       # ex 2017/07/07(Fri) -> 1
-      unless beginning_of_month.saturday? or beginning_of_month.sunday?
-        cweek += 1
-      end
+      cweek += 1 unless weekend?(beginning_of_month)
 
       cweek.to_s
+    end
+
+    def weekend?(day)
+      day.saturday? or day.sunday?
+    end
+
+    def write_reflection
+      activity = capture_stdout { furik_init }
+      activity.gsub!('7days Activities', '## 7days Activity')
     end
 
     def furik_init
@@ -61,8 +73,7 @@ module Furichan
         to: week.end_of_week.to_s,
         since: 0,
       }
-      activity = capture_stdout { furik.activity }
-      activity.gsub!('7days Activities', '## 7days Activity')
+      furik.activity
     end
 
     def capture_stdout
