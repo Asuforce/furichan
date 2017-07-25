@@ -37,7 +37,7 @@ module Furichan
 
     desc 'furik', "write stdout this week's furik"
     def furik
-      furik_init
+      init_furik
     end
 
     private
@@ -64,11 +64,11 @@ module Furichan
     end
 
     def write_reflection
-      activity = capture_stdout { furik_init }
+      activity = capture_stdout { init_furik }
       activity.gsub!('7days Activities', '## 7days Activity')
     end
 
-    def furik_init
+    def init_furik
       week = Date.today.beginning_of_week
       furik = Furik::Cli.new
       furik.options = {
