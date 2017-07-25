@@ -1,6 +1,11 @@
 # Furichan
 
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE) [![Build Status](https://travis-ci.org/Asuforce/furichan.svg?branch=master)](https://travis-ci.org/Asuforce/furichan)
+[![ruby gem](https://img.shields.io/gem/v/furichan.svg?style=flat)][gem]
+[![Build Status](https://travis-ci.org/Asuforce/furichan.svg?branch=master)][travis]
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
+[gem]: https://rubygems.org/gems/furichan
+[travis]: https://travis-ci.org/Asuforce/furichan
 
 Hi, My name is Furichan. Nice to see you.
 I can print your GitHub and GH:E achievement on every week.
