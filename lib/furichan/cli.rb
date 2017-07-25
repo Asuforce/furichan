@@ -11,7 +11,7 @@ module Furichan
   class CLI < Thor
     default_command :furichan
 
-    desc 'furichan', 'Do the all of week task'
+    desc 'furichan', "Create file and write about this week's reflection"
     def furichan
       invoke :init
       invoke :reflection
@@ -25,7 +25,7 @@ module Furichan
       FileUtils.touch("#{wmonth}/README.md")
     end
 
-    desc 'reflection', "write about this week's furik"
+    desc 'reflection', "write file about this week's furik"
     def reflection
       wmonth = get_wmonth
       reflection = write_reflection
@@ -33,6 +33,11 @@ module Furichan
       md = ERB.new(template).result(binding)
       dest = Pathname(wmonth + '/README.md')
       dest.open('a') { |f| f.puts md }
+    end
+
+    desc 'furik', "write stdout this week's furik"
+    def furik
+      furik_init
     end
 
     private
