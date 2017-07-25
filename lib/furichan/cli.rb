@@ -11,10 +11,10 @@ module Furichan
   class CLI < Thor
     default_command :furichan
 
-    desc 'furichan', 'Do the all of week task'
+    desc 'furichan', "Create file and write about this week's reflection"
     def furichan
       invoke :init
-      invoke :furik
+      invoke :reflection
     end
 
     desc 'init', 'initialize of week setting'
@@ -25,14 +25,19 @@ module Furichan
       FileUtils.touch("#{wmonth}/README.md")
     end
 
-    desc 'furik', 'this week"s furik'
-    def furik
+    desc 'reflection', "write file about this week's furik"
+    def reflection
       wmonth = get_wmonth
       reflection = write_reflection
       template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
       md = ERB.new(template).result(binding)
       dest = Pathname(wmonth + '/README.md')
       dest.open('a') { |f| f.puts md }
+    end
+
+    desc 'furik', "write stdout this week's furik"
+    def furik
+      init_furik
     end
 
     private
@@ -59,11 +64,11 @@ module Furichan
     end
 
     def write_reflection
-      activity = capture_stdout { furik_init }
+      activity = capture_stdout { init_furik }
       activity.gsub!('7days Activities', '## 7days Activity')
     end
 
-    def furik_init
+    def init_furik
       week = Date.today.beginning_of_week
       furik = Furik::Cli.new
       furik.options = {
