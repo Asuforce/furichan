@@ -1,5 +1,7 @@
 # Furichan
 
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE) [![Build Status](https://travis-ci.org/Asuforce/furichan.svg?branch=master)](https://travis-ci.org/Asuforce/furichan)
+
 Hi, My name is Furichan. Nice to see you.
 I can print your GitHub and GH:E achievement on every week.
 
@@ -21,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-You can say `$ furichan`.
+You can say `$ furichan`. You can see your GitHub and GH:E achievement.
 
 ## Development
 
