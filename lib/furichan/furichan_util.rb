@@ -1,9 +1,8 @@
-
 require 'date'
-require 'active_support/time'
-require 'furik/cli'
 require 'erb'
 require 'fileutils'
+require 'furik/cli'
+require 'active_support/time'
 
 module FurichanUtil
   private
