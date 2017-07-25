@@ -1,7 +1,6 @@
 # coding: utf-8
 
 require 'thor'
-require 'fileutils'
 require "furichan/furichan_util"
 
 module Furichan
@@ -18,10 +17,8 @@ module Furichan
 
     desc 'init', 'initialize of week setting'
     def init
-      wmonth = get_wmonth
-      `git checkout -b #{wmonth}`
-      FileUtils.mkdir("#{wmonth}")
-      FileUtils.touch("#{wmonth}/README.md")
+      init_branch
+      init_file
     end
 
     desc 'reflection', "write file about this week's furik"

@@ -3,6 +3,7 @@ require 'date'
 require 'active_support/time'
 require 'furik/cli'
 require 'erb'
+require 'fileutils'
 
 module FurichanUtil
   private
@@ -53,6 +54,16 @@ module FurichanUtil
     return out.string
   ensure
     $stdout = STDOUT
+  end
+
+  def init_branch
+   `git checkout -b #{get_wmonth}`
+  end
+
+  def init_file
+    wmonth = get_wmonth
+    FileUtils.mkdir("#{wmonth}")
+    FileUtils.touch("#{wmonth}/README.md")
   end
 
   def create_template
