@@ -2,6 +2,6 @@ sudo: false
 language: ruby
 rvm:
   - 2.4.1
-bundler_args: "--without development -j4"
+bundler_args: "-j4"
 cache: bundler
 script: 'bundle exec rspec'
