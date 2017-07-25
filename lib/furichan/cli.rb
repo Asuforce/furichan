@@ -19,7 +19,7 @@ module Furichan
 
     desc 'init', 'initialize of week setting'
     def init
-      wmonth = Time.now().strftime('%Y-%m-') + week_of_month
+      wmonth = get_wmonth
       `git checkout -b #{wmonth}`
       FileUtils.mkdir("#{wmonth}")
       FileUtils.touch("#{wmonth}/README.md")
@@ -27,7 +27,7 @@ module Furichan
 
     desc 'furik', 'this week"s furik'
     def furik
-      wmonth = Time.now().strftime('%Y-%m-') + week_of_month
+      wmonth = get_wmonth
       template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
       md = ERB.new(template).result(binding)
       dest = Pathname(wmonth + '/README.md')
@@ -35,6 +35,10 @@ module Furichan
     end
 
     private
+
+    def get_wmonth
+      Time.now().strftime('%Y-%m-') + week_of_month
+    end
 
     def week_of_month
       today = Date.today()
