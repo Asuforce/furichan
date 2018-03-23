@@ -1,2 +1,2 @@
-require "furichan/version"
-require "furichan/cli"
+require 'furichan/version'
+require 'furichan/cli'

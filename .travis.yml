@@ -1,7 +1,8 @@
 sudo: false
 language: ruby
-rvm:
-  - 2.4.1
+rvm: 2.5.0
 bundler_args: "-j4"
 cache: bundler
-script: 'bundle exec rspec'
+script:
+  - 'bundle exec rubocop -P'
+  - 'bundle exec rspec'
