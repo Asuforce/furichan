@@ -53,6 +53,5 @@ Style/StabbyLambdaParentheses:
   EnforcedStyle: require_parentheses
   Enabled: true
 
-Rails/ActionFilter:
-  EnforcedStyle: action
-  Enabled: true
+LineLength:
+  Max: 100
