@@ -1,5 +1,5 @@
 require 'thor'
-require "furichan/furichan_util"
+require 'furichan/furichan_util'
 
 module Furichan
   class CLI < Thor

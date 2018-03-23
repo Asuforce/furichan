@@ -5,5 +5,5 @@ rvm:
 bundler_args: "-j4"
 cache: bundler
 script:
-  - 'bundle exec rubocop'
+  - 'bundle exec rubocop -P'
   - 'bundle exec rspec'

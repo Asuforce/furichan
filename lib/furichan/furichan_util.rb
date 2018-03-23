@@ -8,7 +8,7 @@ module FurichanUtil
   private
 
   def get_wmonth
-    Time.now().strftime('%Y-%m-') + week_of_month
+    Time.now.strftime('%Y-%m-') + week_of_month
   end
 
   def week_of_month
@@ -25,7 +25,7 @@ module FurichanUtil
   end
 
   def weekend?(day)
-    day.saturday? or day.sunday?
+    day.saturday? || day.sunday?
   end
 
   def write_reflection
@@ -41,7 +41,7 @@ module FurichanUtil
       ghe: true,
       from: week.to_s,
       to: week.end_of_week.to_s,
-      since: 0,
+      since: 0
     }
     furik.activity
   end
@@ -50,23 +50,23 @@ module FurichanUtil
     out = StringIO.new
     $stdout = out
     yield
-    return out.string
+    out.string
   ensure
     $stdout = STDOUT
   end
 
   def init_branch
-   `git checkout -b #{get_wmonth}`
+    `git checkout -b #{get_wmonth}`
   end
 
   def init_file
     wmonth = get_wmonth
-    FileUtils.mkdir("#{wmonth}")
+    FileUtils.mkdir(wmonth.to_s)
     FileUtils.touch("#{wmonth}/README.md")
   end
 
   def create_template
-    template = File.read(File.expand_path('../templates/template.md.erb', __FILE__))
+    template = File.read(File.expand_path('templates/template.md.erb', __dir__))
     ERB.new(template).result(binding)
   end
 

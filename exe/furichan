@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require "furichan"
+require 'furichan'
 
 Furichan::CLI.start
