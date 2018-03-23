@@ -4,4 +4,6 @@ rvm:
   - 2.4.1
 bundler_args: "-j4"
 cache: bundler
-script: 'bundle exec rspec'
+script:
+  - 'bundle exec rubocop'
+  - 'bundle exec rspec'
